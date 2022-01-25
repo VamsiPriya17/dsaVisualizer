@@ -6,7 +6,7 @@ function Node({value}) {
   <span className ="treeNode" style={{top: (value.level+1)*100}}>
   <div className="node-container">
       <p>{value.data}</p>
-      {/* {value.level} */}
+      {value.level}
   </div>
   </span>
   )

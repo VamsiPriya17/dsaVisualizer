@@ -1,0 +1,51 @@
+.App-Container {
+  /* border: 2px solid black; */
+  margin : 50px;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  min-height: 50vh;
+}
+.Bar {
+  width: 20px;
+  margin: 0 10px;
+  /* background-color: black; */
+  color: #F05454;
+  /* border-radius: 50%; */
+}
+.Header{
+  background-color: #30475E;
+  display: flex;
+  margin-top: none;
+}
+.Header > button{
+  flex : 1;
+  background-color: #30475E;
+  border: 0px;
+  color: white;
+  padding: 20px 0;
+}
+
+.Header > button:hover{
+  background-color: #406882;
+  cursor : pointer;
+}
+
+.btn {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color:white;
+  padding: 20px;
+  height: 50px;
+  background: #30475E;
+  border: 0;
+  border-radius: 5px;
+}
+
+.button-container{
+  width : 100%;
+  display :flex;
+  justify-content: center;
+}

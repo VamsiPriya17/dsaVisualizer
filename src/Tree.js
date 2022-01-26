@@ -1,6 +1,7 @@
 import {React,useState,useEffect} from 'react';
 import "./tree.css"
-import NodeDisplay from "./components/Node"
+import T from './components/treeNode';
+import {Canvas} from 'reaflow'
 // import './styles/Tree.css'
 
 class Node
@@ -18,36 +19,81 @@ class TreeNode{
     constructor(){
         this.root = null
     }
-
+    insert(data)
+    {
+        var newNode = new Node(data);
+         
+        if(this.root === null)
+            this.root = newNode;
+        else
+            this.insertNode(this.root, newNode);
+    }
+    insertNode(node, newNode)
+    {
+        if(newNode.data < node.data)
+        {
+            if(node.left === null)
+                node.left = newNode;
+            else
+                this.insertNode(node.left, newNode);
+        }
+        else
+        {
+            if(node.right === null)
+                node.right = newNode;
+            else
+                this.insertNode(node.right, newNode);
+        }
+    }
+    traversal(root, sample, edges){
+        if(root != null){
+            sample.push({id: root.data,text: root.data})
+            if(root.left != null){
+                edges.push({id: root.data+'-'+root.left.data,
+                from: root.data,
+                to: root.left.data})
+            }
+            if(root.right != null){
+                edges.push({id: root.data+'-'+root.right.data, 
+                from: root.data, 
+                to: root.right.data})
+            }
+            this.traversal(root.left, sample, edges)
+            this.traversal(root.right, sample, edges)
+        }
+    }
 }
+var tree = new TreeNode();
 function Tree() {
-    // let arr = []
-    const [arr,setArr] = useState([])
-    let root = new Node(10);
-    root.left = new Node(5);
-    root.left.level = 1;
-    root.right = new Node(12);
-    root.right.level = 1;
-    // console.log(root)
-    // traversal(root)
-    // setArr([...arr]);
-  function traversal(root){
-      if(root === null)
-        return;
-    console.log(root.data)
-    traversal(root.left);
-    arr.push(root)
-    setArr([...arr])
-    traversal(root.right)
     
-  }
-  
-  
+    const [sample,setSample] = useState([])
+    
+    const [edges,setEdges] = useState([])
+    const [num,setNum] = useState()
+    
+    function display(){
+        setSample([...sample])
+        setEdges([...edges])
+        tree.traversal(tree.root, sample, edges)
+        console.log(sample)
+        console.log(edges)
+    }
+    function Insert(num){
+        tree.insert(num)
+        display();
+    }
+
   return <div className = "tree-Container">
-   { arr.map((item, index) =>
-      <NodeDisplay key={index} value={item}/>
-   )}
-   <button onClick={()=>{traversal(root)}}>Start</button>
+    {/* <T nodes={[...sample]} edges={[...edges]} value={4}/> */}
+    <Canvas
+    maxWidth={200}
+    maxHeight={200}
+    nodes={sample}
+    edges={edges}
+  />
+   <input placeholder = 'insert' onChange={(e) => setNum(parseInt(e.target.value))}/>
+   <button onClick={() => {Insert(num)}}>Insert</button>
+   <button onClick={() => {display()}}>Display</button>
   </div>;
 }
 

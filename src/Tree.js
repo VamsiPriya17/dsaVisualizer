@@ -38,10 +38,10 @@ class TreeNode{
         {
             if(node.left === null){
                 node.left = newNode;
-                sample.push({id: `${node.data}`,text: `${node.data}`})
-                edges.push({id: node.data+'-'+newNode.data,
-                from: `${node.data}`,
-                to: `${newNode.data}`})
+                // sample.push({id: `${node.data}`,text: `${node.data}`})
+                // edges.push({id: node.data+'-'+newNode.data,
+                // from: `${node.data}`,
+                // to: `${newNode.data}`})
             } 
             else
                 this.insertNode(node.left, newNode);

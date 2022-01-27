@@ -2,6 +2,7 @@ import {React,useState,useEffect} from 'react';
 import "./tree.css"
 import T from './components/treeNode';
 import {Canvas} from 'reaflow'
+import {CustomCanvas} from './components/CustomCanvas'
 // import './styles/Tree.css'
 
 class Node
@@ -23,78 +24,100 @@ class TreeNode{
     {
         var newNode = new Node(data);
          
-        if(this.root === null)
+        if(this.root === null){
             this.root = newNode;
-        else
+        }    
+        else{
             this.insertNode(this.root, newNode);
+        }    
     }
-    insertNode(node, newNode)
+    insertNode(node, newNode,sample,edges)
     {
+        console.log(node)
         if(newNode.data < node.data)
         {
-            if(node.left === null)
+            if(node.left === null){
                 node.left = newNode;
+                sample.push({id: `${node.data}`,text: `${node.data}`})
+                edges.push({id: node.data+'-'+newNode.data,
+                from: `${node.data}`,
+                to: `${newNode.data}`})
+            } 
             else
                 this.insertNode(node.left, newNode);
         }
         else
         {
-            if(node.right === null)
+            if(node.right === null){
                 node.right = newNode;
+            }
             else
                 this.insertNode(node.right, newNode);
         }
     }
-    traversal(root, sample, edges){
-        if(root != null){
-            sample.push({id: root.data,text: root.data})
-            if(root.left != null){
-                edges.push({id: root.data+'-'+root.left.data,
-                from: root.data,
-                to: root.left.data})
-            }
-            if(root.right != null){
-                edges.push({id: root.data+'-'+root.right.data, 
-                from: root.data, 
-                to: root.right.data})
-            }
-            this.traversal(root.left, sample, edges)
-            this.traversal(root.right, sample, edges)
+    traversal(curr, sample, edges){
+        if(curr != null){
+            console.log(curr.data)
+            // sample.push({id: `${curr.data}`,text: `${curr.data}`})
+            // if(curr.left != null){}
+            //    { edges.push({id: curr.data+'-'+curr.left.data,
+            //                     from: `${curr.data}`,
+            //                     to: `${curr.left.data}`})
+            // }
+            this.traversal(curr.left, sample, edges)
+            // if(curr.right != null){
+            //     edges.push( {id: curr.data+'-'+curr.right.data,
+            //                     from: `${curr.data}`,
+            //                     to: `${curr.right.data}`})
+            // }
+            this.traversal(curr.right, sample, edges)
         }
     }
 }
 var tree = new TreeNode();
+
 function Tree() {
-    
-    const [sample,setSample] = useState([])
-    
-    const [edges,setEdges] = useState([])
-    const [num,setNum] = useState()
-    
+    console.log('render')
+    const [sample,setSample] = useState([{
+    }])
+    const [edges,setEdges] = useState([{
+    }])
+    console.log(sample)
+   
     function display(){
-        setSample([...sample])
-        setEdges([...edges])
         tree.traversal(tree.root, sample, edges)
-        console.log(sample)
-        console.log(edges)
+        // setSample(sample)
+        // setEdges(edges)
+        console.log(sample,"after")
     }
-    function Insert(num){
-        tree.insert(num)
-        display();
+    function Insert(){
+        console.log("insert")
+        let num = Math.floor((Math.random()*1000))
+        tree.insert(num)   
+        
     }
 
   return <div className = "tree-Container">
-    {/* <T nodes={[...sample]} edges={[...edges]} value={4}/> */}
-    <Canvas
-    maxWidth={200}
-    maxHeight={200}
-    nodes={sample}
-    edges={edges}
-  />
-   <input placeholder = 'insert' onChange={(e) => setNum(parseInt(e.target.value))}/>
-   <button onClick={() => {Insert(num)}}>Insert</button>
+     
+   <button onClick={()=>{Insert()}}>Insert</button>
    <button onClick={() => {display()}}>Display</button>
+   {/* <T id = {edges.length-1} nodes = {sample} edges ={edges} /> */}
   </div>;
 }
 
 export default Tree;
+
+
+
+
+
+
+// sample = [[...sample], {id: `${node.data}`,text: `${node.data}`}]
+//                 edges=[[...edges], {id: node.data+'-'+newNode.data,
+//                 from: `${node.data}`,
+//                 to: `${newNode.data}`}]
+
+// sample = [[...sample], {id: `${node.data}`,text: `${node.data}`}]
+                // edges = [[...edges], {id: node.data+'-'+newNode.data,
+                // from: `${node.data}`,
+                // to: `${newNode.data}`}]

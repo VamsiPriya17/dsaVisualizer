@@ -1,9 +1,11 @@
 import {React,useState,useEffect} from 'react';
 import "./tree.css"
 import T from './components/treeNode';
-import {Canvas} from 'reaflow'
+// import { Canvas, hasLink, NodeData, EdgeData } from 'reaflow';
 import {CustomCanvas} from './components/CustomCanvas'
+import Test from './components/Test'
 // import './styles/Tree.css'
+import { Canvas, addNodeAndEdge } from 'reaflow';
 
 class Node
 {
@@ -31,9 +33,8 @@ class TreeNode{
             this.insertNode(this.root, newNode);
         }    
     }
-    insertNode(node, newNode,sample,edges)
+    insertNode(node, newNode)
     {
-        console.log(node)
         if(newNode.data < node.data)
         {
             if(node.left === null){
@@ -55,53 +56,67 @@ class TreeNode{
                 this.insertNode(node.right, newNode);
         }
     }
-    traversal(curr, sample, edges){
-        if(curr != null){
-            console.log(curr.data)
-            // sample.push({id: `${curr.data}`,text: `${curr.data}`})
-            // if(curr.left != null){}
-            //    { edges.push({id: curr.data+'-'+curr.left.data,
-            //                     from: `${curr.data}`,
-            //                     to: `${curr.left.data}`})
-            // }
-            this.traversal(curr.left, sample, edges)
-            // if(curr.right != null){
-            //     edges.push( {id: curr.data+'-'+curr.right.data,
-            //                     from: `${curr.data}`,
-            //                     to: `${curr.right.data}`})
-            // }
-            this.traversal(curr.right, sample, edges)
-        }
-    }
+    
 }
 var tree = new TreeNode();
 
 function Tree() {
-    console.log('render')
-    const [sample,setSample] = useState([{
-    }])
-    const [edges,setEdges] = useState([{
-    }])
-    console.log(sample)
+    const [sample,setSample] =  useState([
+       
+      ]);
+    
+    const [edges,setEdges] = useState([]);
+    function traversal(curr, sample, edges){
+        console.log(sample,'before Traversal')
+
+        if(curr != null){
+            sample.push({id: `${curr.data}`,text: `${curr.data}`})
+            if(curr.left != null)
+            {   edges.push({id: curr.data+'-'+curr.left.data,
+                from: `${curr.data}`,
+                to: `${curr.left.data}`})
+            }
+            traversal(curr.left, sample, edges)
+            if(curr.right != null){
+                edges.push( {id: curr.data+'-'+curr.right.data,
+                from: `${curr.data}`,
+                to: `${curr.right.data}`})
+            }
+            traversal(curr.right, sample, edges)
+        }
+        console.log(sample,'after Traversal')
+        
+    }
+    
    
     function display(){
-        tree.traversal(tree.root, sample, edges)
-        // setSample(sample)
-        // setEdges(edges)
-        console.log(sample,"after")
+        setSample([])
+        setEdges([])
+        console.log(sample)
+        traversal(tree.root, sample, edges)
+        setSample([...sample])
+        setEdges([...edges])
+        
     }
     function Insert(){
         console.log("insert")
         let num = Math.floor((Math.random()*1000))
         tree.insert(num)   
-        
     }
+    
+ 
+    
+    return <div className = "tree-Container">
+    {/* {console.log(sample,edges)} */}
+    <button onClick={()=>{Insert()}}>Insert</button>
+    <button onClick={() => {display()}}>Display</button>
 
-  return <div className = "tree-Container">
-     
-   <button onClick={()=>{Insert()}}>Insert</button>
-   <button onClick={() => {display()}}>Display</button>
-   {/* <T id = {edges.length-1} nodes = {sample} edges ={edges} /> */}
+    {/* <button onClick={() => {<T n = {sample} e ={edges} />}}>Re-render</button> */}
+    {/* <T n ={sample} e={edges}/> */}
+    <Canvas
+      nodes={sample}
+      edges={edges}
+    />
   </div>;
 }
 

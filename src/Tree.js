@@ -37,17 +37,12 @@ class TreeNode{
     {
         if(newNode.data < node.data)
         {
-            if(node.left === null){
+            if(node.left === null)
                 node.left = newNode;
-                // sample.push({id: `${node.data}`,text: `${node.data}`})
-                // edges.push({id: node.data+'-'+newNode.data,
-                // from: `${node.data}`,
-                // to: `${newNode.data}`})
-            } 
             else
                 this.insertNode(node.left, newNode);
         }
-        else
+        else if(newNode.data > node.data)
         {
             if(node.right === null){
                 node.right = newNode;
@@ -55,20 +50,18 @@ class TreeNode{
             else
                 this.insertNode(node.right, newNode);
         }
+        else{
+            return
+        }
     }
     
 }
 var tree = new TreeNode();
 
 function Tree() {
-    const [sample,setSample] =  useState([
-       
-      ]);
-    
+    const [sample,setSample] =  useState([]);
     const [edges,setEdges] = useState([]);
     function traversal(curr, sample, edges){
-        console.log(sample,'before Traversal')
-
         if(curr != null){
             sample.push({id: `${curr.data}`,text: `${curr.data}`})
             if(curr.left != null)
@@ -83,16 +76,13 @@ function Tree() {
                 to: `${curr.right.data}`})
             }
             traversal(curr.right, sample, edges)
-        }
-        console.log(sample,'after Traversal')
-        
+        } 
     }
     
    
     function display(){
-        setSample([])
-        setEdges([])
-        console.log(sample)
+        sample.length = 0
+        edges.length = 0
         traversal(tree.root, sample, edges)
         setSample([...sample])
         setEdges([...edges])
@@ -100,19 +90,15 @@ function Tree() {
     }
     function Insert(){
         console.log("insert")
-        let num = Math.floor((Math.random()*1000))
-        tree.insert(num)   
+        let num = Math.floor((Math.random()*25))
+        tree.insert(num)  
+        display() 
     }
     
  
     
     return <div className = "tree-Container">
-    {/* {console.log(sample,edges)} */}
     <button onClick={()=>{Insert()}}>Insert</button>
-    <button onClick={() => {display()}}>Display</button>
-
-    {/* <button onClick={() => {<T n = {sample} e ={edges} />}}>Re-render</button> */}
-    {/* <T n ={sample} e={edges}/> */}
     <Canvas
       nodes={sample}
       edges={edges}

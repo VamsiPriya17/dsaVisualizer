@@ -20,3 +20,12 @@
     width: 500px;
     
 }
+
+.null {
+    /* visibility: hidden !important; */
+    display: none !important;
+    
+}
+.null-edge{
+    display: none !important;
+}

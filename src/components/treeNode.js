@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import CustomCanvas from './CustomCanvas'
 import { Canvas, addNodeAndEdge } from 'reaflow';
 
 export default ({n,e}) => {

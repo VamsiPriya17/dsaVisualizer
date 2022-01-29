@@ -3,11 +3,12 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import Tree from "./Tree";
-
+import {CustomCanvas} from "./components/CustomCanvas"
 ReactDOM.render(
   <React.StrictMode>
     {/* <App /> */}
     <Tree />
+    {/* <CustomCanvas /> */}
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -5,9 +5,9 @@ import T from './components/treeNode';
 import {CustomCanvas} from './components/CustomCanvas'
 import Test from './components/Test'
 // import './styles/Tree.css'
-import { Canvas, addNodeAndEdge } from 'reaflow';
+import { Canvas, Node, Edge, Port, MarkerArrow ,Label} from 'reaflow';
 
-class Node
+class NodeClass
 {
     constructor(data)
     {
@@ -24,7 +24,7 @@ class TreeNode{
     }
     insert(data)
     {
-        var newNode = new Node(data);
+        var newNode = new NodeClass(data);
          
         if(this.root === null){
             this.root = newNode;
@@ -69,14 +69,32 @@ function Tree() {
                 from: `${curr.data}`,
                 to: `${curr.left.data}`})
             }
+            else{
+                sample.push({id: `${curr.data}-L`, text: ` `,className: 'null'})
+                console.log(sample,'sample')
+                edges.push({id:  `${curr.data}-L`,
+                from: `${curr.data}`,
+                to: `${curr.data}-L`,
+                className: 'null-edge'
+            })
+                console.log(edges,'edges')
+            }
             traversal(curr.left, sample, edges)
             if(curr.right != null){
                 edges.push( {id: curr.data+'-'+curr.right.data,
                 from: `${curr.data}`,
                 to: `${curr.right.data}`})
             }
+            else{
+                sample.push({id: `${curr.data}-R`, text: ` `,className:'null'})
+                edges.push({id:  `${curr.data}-R`,
+                from: `${curr.data}`,
+                to: `${curr.data}-R`,
+                className: 'null-edge'
+            })
+            }
             traversal(curr.right, sample, edges)
-        } 
+        }
     }
     
    
@@ -102,7 +120,11 @@ function Tree() {
     <Canvas
       nodes={sample}
       edges={edges}
+      
+    arrow={<MarkerArrow style={{ fill: '#b1b1b7' }} />}
+    edge={<Edge className="edge" />}
     />
+    
   </div>;
 }
 

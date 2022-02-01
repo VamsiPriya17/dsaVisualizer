@@ -5,7 +5,7 @@ import T from './components/treeNode';
 import {CustomCanvas} from './components/CustomCanvas'
 import Test from './components/Test'
 // import './styles/Tree.css'
-import { Canvas, Node, Edge, Port, MarkerArrow ,Label} from 'reaflow';
+import { Canvas, Node, Edge, Port, MarkerArrow ,Label, removeNode} from 'reaflow';
 
 class NodeClass
 {
@@ -61,6 +61,7 @@ var tree = new TreeNode();
 function Tree() {
     const [sample,setSample] =  useState([]);
     const [edges,setEdges] = useState([]);
+    const [curr,setCurr] = useState([]);
     function traversal(curr, sample, edges){
         if(curr != null){
             sample.push({id: `${curr.data}`,text: `${curr.data}`})
@@ -71,13 +72,11 @@ function Tree() {
             }
             else{
                 sample.push({id: `${curr.data}-L`, text: ` `,className: 'null'})
-                console.log(sample,'sample')
                 edges.push({id:  `${curr.data}-L`,
                 from: `${curr.data}`,
                 to: `${curr.data}-L`,
                 className: 'null-edge'
             })
-                console.log(edges,'edges')
             }
             traversal(curr.left, sample, edges)
             if(curr.right != null){
@@ -97,7 +96,14 @@ function Tree() {
         }
     }
     
-   
+    function inorderRecur(node){
+        if(node != null){
+            inorderRecur(node.left)
+            curr.push(node.data)
+            console.log(curr)
+            inorderRecur(node.right)
+        }
+    }
     function display(){
         sample.length = 0
         edges.length = 0
@@ -107,20 +113,58 @@ function Tree() {
         
     }
     function Insert(){
-        console.log("insert")
         let num = Math.floor((Math.random()*25))
         tree.insert(num)  
         display() 
     }
-    
- 
+    function inorder(){
+        curr.length=0;
+        inorderRecur(tree.root)
+        setCurr([...curr])
+        for(let i = 0; i < curr.length; i++){
+            setTimeout(()=>{
+                let index = sample.findIndex((idx)=>(idx.id === `${curr[i]}`));
+                let currArray = [...sample];
+                currArray[index].className = 'traverse';
+                setSample([...currArray])
+            },1000*i)
+        }
+    }
+    function removeNode(){
+        console.log('removed')
+    }
+    function del(node){
+        removeNode(node)
+    }
     
     return <div className = "tree-Container">
     <button onClick={()=>{Insert()}}>Insert</button>
+    <button onClick={()=>{inorder()}}>Inorder-Traversal</button>
     <Canvas
       nodes={sample}
       edges={edges}
-      
+      width={900}
+      height={500}
+      node={( ) => (
+        <Node
+          
+          draggable={false}
+          linkable={false}
+          onClick={(event ,node) => {
+            del(node);
+          }}
+        />
+      )}
+    //   node = {
+    //     <Node
+        
+    //     onClick={() => {
+    //         console.log(node.properties.data)
+    //     }}
+    //     draggable={false}
+    //     linkable={false}
+    //     />
+    //   }
     arrow={<MarkerArrow style={{ fill: '#b1b1b7' }} />}
     edge={<Edge className="edge" />}
     />
@@ -131,16 +175,3 @@ function Tree() {
 export default Tree;
 
 
-
-
-
-
-// sample = [[...sample], {id: `${node.data}`,text: `${node.data}`}]
-//                 edges=[[...edges], {id: node.data+'-'+newNode.data,
-//                 from: `${node.data}`,
-//                 to: `${newNode.data}`}]
-
-// sample = [[...sample], {id: `${node.data}`,text: `${node.data}`}]
-                // edges = [[...edges], {id: node.data+'-'+newNode.data,
-                // from: `${node.data}`,
-                // to: `${newNode.data}`}]

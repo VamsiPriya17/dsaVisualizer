@@ -1,4 +1,4 @@
-.treeNode{
+;.treeNode{
    padding: 10px 30px;
    /* background-color: gray; */
    position: fixed;
@@ -28,4 +28,9 @@
 }
 .null-edge{
     display: none !important;
+}
+
+.traverse{
+    /* display: none; */
+    fill: rgb(69, 196, 201) !important
 }

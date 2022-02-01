@@ -4,8 +4,7 @@ export const CustomCanvas = () => (
   <>
   <h1>He</h1>l
   <Canvas
-    // layoutOptions={}
-  
+
     nodes={[{
       id: '1',
       text: '1'
@@ -27,7 +26,7 @@ export const CustomCanvas = () => (
       />
     }
     arrow={<MarkerArrow style={{ fill: '#b1b1b7' }} />}
-    edge={<Edge className="edge" />}
+    
   />
 
   </>

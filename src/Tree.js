@@ -130,11 +130,45 @@ function Tree() {
             },1000*i)
         }
     }
-    function removeNode(){
-        console.log('removed')
+    function minVal(temp){
+        let minv = temp.data;
+        while (temp.left != null)
+        {
+            minv = temp.left.data;
+            temp = temp.left;
+        }
+        return minv;
+    }
+    function removeNode(num, curr){
+        if(curr == null)
+            return curr;
+        if(num < curr.data){
+            curr.left = removeNode(num, curr.left);
+        }
+        else if(num > curr.data){
+            curr.right = removeNode(num, curr.right);
+        }
+        else{
+            if(curr.left == null)
+                return curr.right;
+            if(curr.right == null)
+                return curr.left;
+            curr.data = minVal(curr.right);
+            curr.right = removeNode(curr.data, curr.right)
+        }
+
+        return curr;
     }
     function del(node){
-        removeNode(node)
+        console.log('del func');
+        let num = node.text.toString();
+        console.log(num)
+        tree.root = removeNode(num, tree.root)
+        sample.length = 0;
+        edges.length = 0;
+        traversal(tree.root, sample, edges);
+        setEdges([...edges]);
+        setSample([...sample]);
     }
     
     return <div className = "tree-Container">
@@ -155,16 +189,6 @@ function Tree() {
           }}
         />
       )}
-    //   node = {
-    //     <Node
-        
-    //     onClick={() => {
-    //         console.log(node.properties.data)
-    //     }}
-    //     draggable={false}
-    //     linkable={false}
-    //     />
-    //   }
     arrow={<MarkerArrow style={{ fill: '#b1b1b7' }} />}
     edge={<Edge className="edge" />}
     />

@@ -32,7 +32,7 @@
 
 .traverse{
     /* display: none; */
-    fill: rgb(69, 196, 201) !important
+    fill: #f28482 !important
 }
 
 .pred{
@@ -44,4 +44,7 @@
 
 .selected{
     fill: grey !important
+}
+.canvas::-webkit-scrollbar {
+    display: none;
 }

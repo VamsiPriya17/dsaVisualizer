@@ -6,7 +6,7 @@ function Bar({ value, color }) {
       className="Bar"
       color={color}
       style={{ height: value * 5, backgroundColor: color, color : "black"}}
-    >{value}</div>
+    ></div>
   );
 }
 

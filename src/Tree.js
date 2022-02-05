@@ -1,8 +1,5 @@
 import {React,useState,useEffect} from 'react';
 import "./tree.css"
-import T from './components/treeNode';
-import {CustomCanvas} from './components/CustomCanvas'
-import Test from './components/Test'
 import { Canvas, Node, Edge, Port, MarkerArrow ,Label, removeNode} from 'reaflow';
 
 class NodeClass
@@ -56,7 +53,7 @@ class TreeNode{
 }
 var tree = new TreeNode();
 var pre , suc;
-function Tree() {
+function Tree({setOption}) {
     const [sample,setSample] =  useState([]);
     const [edges,setEdges] = useState([]);
     const [curr,setCurr] = useState([]);
@@ -299,6 +296,12 @@ function Tree() {
         }
     }
     return <div className = "tree-Container">
+    <div className = "Header">
+    <button
+        onClick={() => {
+          setOption('homepage')
+        }}
+      >HOME</button>
     <button onClick={()=>{Insert()}}>Insert</button>
     <button onClick={()=>{preorder()}}>Preorder-Traversal</button>
     <button onClick={()=>{inorder()}}>Inorder-Traversal</button>
@@ -307,15 +310,17 @@ function Tree() {
     <button onClick={()=>{PreSuc(selected)}}>Predecessor-Succesor</button>
     <button onClick={()=>{min(selected)}}>Minimum</button>
     <button onClick={()=>{max(selected)}}>Maximum</button>
+     </div>
 
     <Canvas
+      className='canvas'
       nodes={sample}
       edges={edges}
-      width={900}
-      height={500}
+      
       node={( ) => (
         <Node
-          
+          center= {true}
+          fit={true}
           draggable={false}
           linkable={false}
           onClick={(event ,node) => {
@@ -330,8 +335,7 @@ function Tree() {
       )}
     arrow={<MarkerArrow style={{ fill: '#b1b1b7' }} />}
     edge={<Edge className="edge" />}
-    />
-    
+    />   
   </div>;
 }
 

@@ -1,17 +1,23 @@
 .App-Container {
-  /* border: 2px solid black; */
+  padding: 50px;
+  border-radius: 10px;
+  border: rgba(100,100,111,0.3);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   margin : 50px;
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: end;
   min-height: 50vh;
+  
+
 }
 .Bar {
-  width: 20px;
-  margin: 0 10px;
+  width: 30px;
+  margin: 0 3px;
   /* background-color: black; */
   color: #F05454;
-  /* border-radius: 50%; */
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
 }
 .Header{
   background-color: #30475E;
@@ -48,4 +54,38 @@
   width : 100%;
   display :flex;
   justify-content: center;
+}
+.heading{
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+.heading-item{
+  background-color: white;
+  flex : 1;
+  margin: 50px;
+  border-radius: 5px;
+  /* padding:100px 0; */
+  height: 400px;
+  width: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+/* .heading :hover{
+  background-color: rgba(42, 157, 143, 0.7);
+} */
+
+.sorting{
+  background-image: url('/public/sort.png');
+  
+  object-fit: contain;
+  object-position: center;
+}
+.tree{
+  background-image: url('/public/tree.png');
+  object-fit: contain;
+  object-position: center;
 }

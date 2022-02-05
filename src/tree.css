@@ -34,3 +34,14 @@
     /* display: none; */
     fill: rgb(69, 196, 201) !important
 }
+
+.pred{
+    fill: green !important;
+}
+.suc{
+    fill: red !important;
+}
+
+.selected{
+    fill: grey !important
+}

@@ -1,3 +1,12 @@
+:root {
+  --light: #d9d9d9;
+  --light-med: #a6a6a6;
+  --med: #737373;
+  --med-dark: #545454;
+  --dark: #000000;
+}
+
+
 .App-Container {
   padding: 50px;
   border-radius: 10px;
@@ -14,25 +23,23 @@
 .Bar {
   width: 30px;
   margin: 0 3px;
-  /* background-color: black; */
-  color: #94a3b8;
+  color: var(---med);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
 .Header{
-  background-color: #0A0908;
+  background-color: var(--dark);
   display: flex;
   margin-top: none;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .Header > button{
   flex : 1;
-  background-color: #0A0908;
+  background-color: var(--dark);
   border: 0px;
-  color: #EAE0D5;
+  color: var(--light);
   font-size: medium;
   padding: 20px 0;
-  /* font-family: 'Pacifico', cursive; */
 }
 
 .Header > button:hover{
@@ -42,7 +49,8 @@
 }
 
 .Header > button:first-child{
-  font-family: 'Pacifico', cursive;
+  font-family: 'Quintessential', cursive;
+  color: white;
   font-size: 32px;
 }
 
@@ -51,7 +59,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  color:#EAE0D5;
+  color: var(--light);
   padding: 20px;
   height: 50px;
   background:#0A0908 ;
@@ -80,26 +88,21 @@
   flex : 1;
   margin: 50px;
   border-radius: 5px;
-  /* padding:100px 0; */
-  height: 400px;
-  width: 400px;
+  height: 200px;
+  width: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-size: contain;
   background-repeat: no-repeat;
 }
-/* .heading :hover{
-  background-color: rgba(42, 157, 143, 0.7);
-} */
-
 .sorting{
-  background-image: url('/public/sort.png');
+  background-image: url('/public/sort.svg');
   object-fit: contain;
   object-position: center;
 }
 .tree{
-  background-image: url('/public/tree.png');
+  background-image: url('/public/tree.svg');
   object-fit: contain;
   object-position: center;
 }

@@ -349,7 +349,7 @@ function Tree({setOption}) {
       
       node={( ) => (
         <Node
-        style={{ fill: '#161E22', strokeWidth: 1 }}
+        style={{ fill: '#545454', strokeWidth: 1 }}
           center= {true}
           fit={true}
           draggable={false}

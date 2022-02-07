@@ -1,3 +1,12 @@
+:root {
+    --light: #d9d9d9;
+    --light-med: #a6a6a6;
+    --med: #737373;
+    --med-dark: #545454;
+    --dark: #000000;
+  }
+
+
 .treeNode{
    padding: 10px 30px;
    /* background-color: gray; */
@@ -7,7 +16,7 @@
 }
 .tree-Container {
     position: relative;
-    height: 100vh;
+    height: 90vh;
     
     /* width: 100%; */
    /* display: flex; */
@@ -29,18 +38,18 @@
 
 .traverse{
     /* display: none; */
-    fill: #5E503F !important
+    fill: var(--dark) !important
 }
 
 .pred{
-    fill: #5E503F !important;
+    fill: var(--light) !important;
 }
 .suc{
-    fill: #C6AC8F !important;
+    fill: var(--dark) !important;
 }
 
 .selected{
-    fill: grey !important
+    fill: var(--light-med) !important
 }
 .canvas::-webkit-scrollbar {
     display: none;

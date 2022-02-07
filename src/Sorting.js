@@ -171,11 +171,11 @@ function Sorting({setOption})
       <div className="App-Container" >
         {array.map((item, index) =>
           index === store[1] || index === store[0] ? (
-            <Bar value={item} key={index} color="#5E503F" />
+            <Bar value={item} key={index} color="#545454" />
           ) : sortedIdx.includes(index)? (
-            <Bar value={item} key={index} color="#5E503F" />
+            <Bar value={item} key={index} color="#545454" />
           ) : (
-            <Bar value={item} key={index} color="#C6AC8F" />
+            <Bar value={item} key={index} color="#a6a6a6" />
           )
         )}
       </div>

@@ -60,9 +60,13 @@ function Tree({setOption}) {
     const [selected, setSelected] = useState();
     const [isSel,setIsSel] = useState(-1);
     useEffect(()=>{
-        setSelected(tree.root)
+        setSelected(tree.root);
+        scrollToTop();
     },[tree.root])
     
+    const scrollToTop = ()=> {
+        window.scrollTo(0, 0);
+    }
     function traversal(curr, sample, edges){
         if(curr != null){
             sample.push({id: `${curr.data}`,text: `${curr.data}`})

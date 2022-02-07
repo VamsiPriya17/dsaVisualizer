@@ -25,7 +25,8 @@ function Sorting({setOption})
 
   useEffect(()=>{
     let arr = generate();
-    setArray([...arr])
+    setArray([...arr]);
+    scrollToTop();
   },[])
 
   const swap = (array, i, j) => {
@@ -33,6 +34,10 @@ function Sorting({setOption})
     setStore([i,j]);
     setArray([...array]);
   };
+
+  const scrollToTop = ()=> {
+    window.scrollTo(0, 0);
+}
 
   const ms = (array,k,val) =>{
     array[k] = val ;

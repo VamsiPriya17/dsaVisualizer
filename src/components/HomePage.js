@@ -4,7 +4,7 @@ import "../App.css";
 function HomePage({option,setOption}) {
   return<div>
       <div className='Header'>
-        <button >VISUALIZER</button>
+        <button >Visualizer</button>
       </div>
        <div className='heading'>
       <div className='heading-item sorting' onClick={()=>{setOption('sorting')}}></div>

@@ -15,26 +15,35 @@
   width: 30px;
   margin: 0 3px;
   /* background-color: black; */
-  color: #F05454;
+  color: #94a3b8;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
 }
 .Header{
-  background-color: #30475E;
+  background-color: #0A0908;
   display: flex;
   margin-top: none;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 .Header > button{
   flex : 1;
-  background-color: #30475E;
+  background-color: #0A0908;
   border: 0px;
-  color: white;
+  color: #EAE0D5;
+  font-size: medium;
   padding: 20px 0;
+  /* font-family: 'Pacifico', cursive; */
 }
 
 .Header > button:hover{
-  background-color: #406882;
+  background-color:#1E2022 ;
   cursor : pointer;
+ 
+}
+
+.Header > button:first-child{
+  font-family: 'Pacifico', cursive;
+  font-size: 32px;
 }
 
 .btn {
@@ -42,12 +51,18 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  color:white;
+  color:#EAE0D5;
   padding: 20px;
   height: 50px;
-  background: #30475E;
+  background:#0A0908 ;
   border: 0;
   border-radius: 5px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  transition: all 0.1s ease-in;
+}
+.btn:hover{
+   transform: scale(1.05);
+  cursor: pointer;
 }
 
 .button-container{
@@ -80,7 +95,6 @@
 
 .sorting{
   background-image: url('/public/sort.png');
-  
   object-fit: contain;
   object-position: center;
 }

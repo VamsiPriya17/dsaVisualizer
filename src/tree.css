@@ -1,11 +1,9 @@
-;.treeNode{
+.treeNode{
    padding: 10px 30px;
    /* background-color: gray; */
    position: fixed;
    top: 300px;
    /* width: 20px; */
-  
-   
 }
 .tree-Container {
     position: relative;
@@ -18,7 +16,6 @@
     display: flex;
     border: 2px solid green;
     width: 500px;
-    
 }
 
 .null {
@@ -32,14 +29,14 @@
 
 .traverse{
     /* display: none; */
-    fill: #f28482 !important
+    fill: #5E503F !important
 }
 
 .pred{
-    fill: green !important;
+    fill: #5E503F !important;
 }
 .suc{
-    fill: red !important;
+    fill: #C6AC8F !important;
 }
 
 .selected{

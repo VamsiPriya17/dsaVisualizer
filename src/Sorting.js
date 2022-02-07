@@ -10,11 +10,13 @@ function Sorting({setOption})
 {
   const [array, setArray] = useState([]);
   const [store, setStore] = useState([]);
+  const [isRun, setRun] = useState(0)
+  let a;
   const sortedIdx = [] 
 
   const generate = () => {
     let sample = [];
-    for (let i = 0; i < 25; i++) {
+    for (let i = 0; i < 15; i++) {
       sample.push(Math.floor(Math.random() * 50) + 1);
     }
     setArray(sample);
@@ -40,6 +42,7 @@ function Sorting({setOption})
 
 
   function bubbleSorting(array){
+    setRun(1)
     let storeIdx = bubbleSort(array);
     for(let i = 0; i < storeIdx.length; i++){
        setTimeout(()=>{
@@ -48,10 +51,12 @@ function Sorting({setOption})
     }
     setTimeout(()=>{
       setStore([])
+      setRun(0)
     },200*storeIdx.length)
   }
   
   function selectionSorting(array){
+    setRun(1)
     let storeIdx = selectionSort(array);
     for(let i = 0; i < storeIdx.length-1; i+=2){
       setTimeout(() => {
@@ -60,10 +65,12 @@ function Sorting({setOption})
     }
     setTimeout(()=>{
       setStore([])
+      setRun(0)
     },200*storeIdx.length)
   }
 
   function insertionSorting(array){
+    setRun(1)
     let storeIdx = insertionSort(array);
     console.log(storeIdx)
     for(let i = 0; i < storeIdx.length-1; i+=2){
@@ -73,10 +80,12 @@ function Sorting({setOption})
     }
     setTimeout(()=>{
       setStore([])
+      setRun(0)
     },200*storeIdx.length)
   }
 
   function quickSorting(array){
+    setRun(1)
     let storeIdx = quickSort(array, 0, array.length-1);
     console.log(storeIdx);
     for(let i = 0; i <= storeIdx.length-2; i+=2){
@@ -86,10 +95,12 @@ function Sorting({setOption})
     }
     setTimeout(()=>{
       setStore([])
+      setRun(0)
     },200*storeIdx.length)
   }
 
   function mergeSorting(array){
+    setRun(1)
     let storeIdx = mergesort(array,0, array.length-1);
     for(let i = 0; i < storeIdx.length; i++){
       setTimeout(() => {
@@ -98,6 +109,7 @@ function Sorting({setOption})
     }
     setTimeout(()=>{
       setStore([])
+      setRun(0)
     },200*storeIdx.length)
   }
 
@@ -111,39 +123,44 @@ function Sorting({setOption})
           setOption('homepage')
         }}
       >
-        HOME 
+      Visualizer
       </button>
       <button
         onClick={() => {
-          bubbleSorting(array);
+          a = (isRun === 0) ? 
+          bubbleSorting(array) : null;
         }}
       >
         Bubble Sort
       </button>
       <button
         onClick={() => {
-          selectionSorting(array);
+          a = (isRun === 0) ?
+          selectionSorting(array) : null;
         }}
       >
         Selection Sort
       </button>
       <button 
         onClick={() => {
-          insertionSorting(array);
+          a = (isRun === 0) ?
+          insertionSorting(array): null;
         }}
       >
         Insertion Sort
       </button>
       <button 
         onClick={() => {
-          mergeSorting(array);
+          a = (isRun === 0) ?
+          mergeSorting(array) : null;
         }}
       >
         Merge Sort
       </button>
       <button 
         onClick={() => {
-          quickSorting(array);
+          a = (isRun === 0) ?
+          quickSorting(array): null;
         }}
       >
         Quick Sort
@@ -154,16 +171,18 @@ function Sorting({setOption})
       <div className="App-Container" >
         {array.map((item, index) =>
           index === store[1] || index === store[0] ? (
-            <Bar value={item} key={index} color="#f28482" />
+            <Bar value={item} key={index} color="#5E503F" />
           ) : sortedIdx.includes(index)? (
-            <Bar value={item} key={index} color="#f28482" />
+            <Bar value={item} key={index} color="#5E503F" />
           ) : (
-            <Bar value={item} key={index} color="#84a59d" />
+            <Bar value={item} key={index} color="#C6AC8F" />
           )
         )}
       </div>
       <div className = "button-container">
-        <button className ="btn" onClick={generate}>Generate</button>
+        <button className ="btn" onClick={()=>{
+           a = (isRun === 0) ?
+        generate() : null}}>Generate</button>
       </div>
       
     </div>

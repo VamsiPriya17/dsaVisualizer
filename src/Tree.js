@@ -46,7 +46,7 @@ class TreeNode{
                 this.insertNode(node.right, newNode);
         }
         else{
-            return
+            return 1
         }
     }
     
@@ -58,6 +58,7 @@ function Tree({setOption}) {
     const [edges,setEdges] = useState([]);
     const [curr,setCurr] = useState([]);
     const [selected, setSelected] = useState();
+    const [isSel,setIsSel] = useState(-1);
     useEffect(()=>{
         setSelected(tree.root)
     },[tree.root])
@@ -118,18 +119,21 @@ function Tree({setOption}) {
         }
     }
     function inorder(){
+        display()
         curr.length=0;
         inorderRecur(tree.root)
         setCurr([...curr])
         loop();
     }
     function preorder(){
+        display()
         curr.length=0;
         preorderRecur(tree.root)
         setCurr([...curr])
         loop();
     }
     function postorder(){
+        display()
         curr.length=0;
         postorderRecur(tree.root)
         setCurr([...curr])
@@ -156,10 +160,16 @@ function Tree({setOption}) {
             display();
         },1000*curr.length)
         setCurr([]);
+        setIsSel(-1);
     }
     function Insert(){
-        let num = Math.floor((Math.random()*25))
-        tree.insert(num)  
+        let num = Math.floor((Math.random()*50))
+        let res = 0;
+        res = tree.insert(num) 
+        while(res == 1){
+            num = Math.floor((Math.random()*50))
+            res = tree.insert(num) 
+        } 
         display() 
     }
     function minVal(temp){
@@ -192,13 +202,18 @@ function Tree({setOption}) {
         return curr;
     }
     function del(node){
-        let num = node.text;
-        tree.root = removeNode(num, tree.root)
-        sample.length = 0;
-        edges.length = 0;
-        traversal(tree.root, sample, edges);
-        setEdges([...edges]);
-        setSample([...sample]);
+        if(isSel === -1)
+        alert("Please select a node.")
+        else{
+            let num = node.text;
+            tree.root = removeNode(num, tree.root)
+            sample.length = 0;
+            edges.length = 0;
+            traversal(tree.root, sample, edges);
+            setEdges([...edges]);
+            setSample([...sample]);
+            setIsSel(-1);
+        }
     }
     
     function search(key) {
@@ -226,18 +241,28 @@ function Tree({setOption}) {
         }
     }
     function min(node){
-        let x = search(node.text)
-        curr.length=0;
-        minRecur(x)
-        setCurr([...curr])
-        loop()
+        if(isSel === -1)
+        alert("Please select a node.")
+        else{
+
+            let x = search(node.text)
+            curr.length=0;
+            minRecur(x)
+            setCurr([...curr])
+            loop()
+        }
+        
     }
     function max(node){
-        let x = search(node.text)
-        curr.length=0;
-        maxRecur(x);
-        setCurr([...curr])
-        loop();
+        if(isSel === -1)
+        alert("Please select a node.")
+        else{
+            let x = search(node.text)
+            curr.length=0;
+            maxRecur(x);
+            setCurr([...curr])
+            loop();
+        }
     }
     function findPredSuc(node, key){
         if (node == null)
@@ -278,6 +303,10 @@ function Tree({setOption}) {
     }
 
     function PreSuc(node){
+        if(isSel === -1){
+            alert("Please select a node.")
+            return
+        }
         display();
         pre = null;
         suc = null;
@@ -294,6 +323,7 @@ function Tree({setOption}) {
             currArray[index].className = 'suc';
             setSample([...currArray])
         }
+        setIsSel(-1);
     }
     return <div className = "tree-Container">
     <div className = "Header">
@@ -301,13 +331,13 @@ function Tree({setOption}) {
         onClick={() => {
           setOption('homepage')
         }}
-      >HOME</button>
+    >Visualizer</button>
     <button onClick={()=>{Insert()}}>Insert</button>
-    <button onClick={()=>{preorder()}}>Preorder-Traversal</button>
-    <button onClick={()=>{inorder()}}>Inorder-Traversal</button>
-    <button onClick={()=>{postorder()}}>Postorder-Traversal</button>
+    <button onClick={()=>{preorder()}}>Preorder</button>
+    <button onClick={()=>{inorder()}}>Inorder</button>
+    <button onClick={()=>{postorder()}}>Postorder</button>
     <button onClick={()=>{del(selected)}}>Delete</button>
-    <button onClick={()=>{PreSuc(selected)}}>Predecessor-Succesor</button>
+    <button onClick={()=>{PreSuc(selected)}}>Pred-Succ</button>
     <button onClick={()=>{min(selected)}}>Minimum</button>
     <button onClick={()=>{max(selected)}}>Maximum</button>
      </div>
@@ -319,12 +349,14 @@ function Tree({setOption}) {
       
       node={( ) => (
         <Node
+        style={{ fill: '#161E22', strokeWidth: 1 }}
           center= {true}
           fit={true}
           draggable={false}
           linkable={false}
           onClick={(event ,node) => {
             display()
+            setIsSel(1);
             setSelected(node)
             let index = sample.findIndex((idx)=>(idx.text === `${node.text}`));
             let currArray = [...sample];
